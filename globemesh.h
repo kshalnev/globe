@@ -1,14 +1,16 @@
 #pragma once
 
-class CHeightMapI;
+class IHeightMap;
 
-class CGlobeMesh
+class GlobeMesh
 {
 public:
-    CGlobeMesh(const CHeightMapI& heightMap);
-    ~CGlobeMesh();
+    GlobeMesh(const IHeightMap& heightMap);
+    ~GlobeMesh();
 
+    void InitOpenGL();
     void DrawOpenGL();
+    void UninitOpenGL();
 
 private:
     struct SVertice
@@ -18,14 +20,11 @@ private:
         double texture[2];
     };
 
-    void Init();
-
     std::vector<SVertice> m_vertices;
     std::vector<unsigned int> m_indices;
     size_t m_countX = 0;
     size_t m_countY = 0;
 
-    bool m_init = false;
     GLuint m_vb = 0;
     GLuint m_ib = 0;
 };

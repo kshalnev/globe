@@ -17,3 +17,6 @@
 
 #define VRF_GEN(expr) \
 { if (!(expr)) { throw std::bad_exception(); } }
+
+#define VRF_OGL(expr) \
+(expr)

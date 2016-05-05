@@ -62,11 +62,13 @@ inline void GetNormal(const double a[3], const double b[3], const double c[3], d
     Normalize(n);
 }
 
+inline void* BUFFER_OFFSET(size_t i) { return reinterpret_cast<void*>(i); }
+
 //
-// CGlobeMesh class
+// GlobeMesh class
 //
 
-CGlobeMesh::CGlobeMesh(const CHeightMapI& heightMap)
+GlobeMesh::GlobeMesh(const IHeightMap& heightMap)
 {
     const size_t countX = heightMap.GetWidth();
     const size_t countY = heightMap.GetHeight();
@@ -206,7 +208,7 @@ CGlobeMesh::CGlobeMesh(const CHeightMapI& heightMap)
     m_indices.swap(indices);
 }
 
-CGlobeMesh::~CGlobeMesh()
+GlobeMesh::~GlobeMesh()
 {
     m_indices.clear();
     m_vertices.clear();
@@ -214,72 +216,47 @@ CGlobeMesh::~CGlobeMesh()
     m_countY = 0;
 }
 
-inline void* BUFFER_OFFSET(size_t i) { return reinterpret_cast<void*>(i); }
-
-void CGlobeMesh::Init()
+void GlobeMesh::InitOpenGL()
 {
     GLuint vb = 0;
-    glGenBuffers(1, &vb);
-    glBindBuffer(GL_ARRAY_BUFFER, vb);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(SVertice) * m_vertices.size(), m_vertices.data(), GL_STATIC_DRAW);
+    VRF_OGL( glGenBuffers(1, &vb) );
+    VRF_OGL( glBindBuffer(GL_ARRAY_BUFFER, vb) );
+    VRF_OGL( glBufferData(GL_ARRAY_BUFFER, sizeof(SVertice) * m_vertices.size(), m_vertices.data(), GL_STATIC_DRAW) );
 
     GLuint ib = 0;
-    glGenBuffers(1, &ib);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * m_indices.size(), m_indices.data(), GL_STATIC_DRAW);
+    VRF_OGL( glGenBuffers(1, &ib) );
+    VRF_OGL( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib) );
+    VRF_OGL( glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * m_indices.size(), m_indices.data(), GL_STATIC_DRAW) );
 
     m_vb = vb;
     m_ib = ib;
 }
 
-void CGlobeMesh::DrawOpenGL()
+void GlobeMesh::UninitOpenGL()
 {
-    if (m_init == false)
-    {
-        m_init = true;
-        Init();
-    }
+    VRF_OGL( glDeleteBuffers(1, &m_vb) );
+    VRF_OGL( glDeleteBuffers(1, &m_ib) );
 
-    glCullFace(GL_FRONT_AND_BACK);
+    m_vb = 0;
+    m_ib = 0;
+}
 
-    glBindBuffer(GL_ARRAY_BUFFER, m_vb);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_DOUBLE, sizeof(SVertice), BUFFER_OFFSET(0));
-    glEnableClientState(GL_NORMAL_ARRAY);
-    glNormalPointer(GL_DOUBLE, sizeof(SVertice), BUFFER_OFFSET(3 * sizeof(double)));
-    glClientActiveTexture(GL_TEXTURE0);
-    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    glTexCoordPointer(2, GL_DOUBLE, sizeof(SVertice), BUFFER_OFFSET(6 * sizeof(double)));
+void GlobeMesh::DrawOpenGL()
+{
+    VRF_OGL( glBindBuffer(GL_ARRAY_BUFFER, m_vb) );
+    VRF_OGL( glEnableClientState(GL_VERTEX_ARRAY) );
+    VRF_OGL( glVertexPointer(3, GL_DOUBLE, sizeof(SVertice), BUFFER_OFFSET(0)) );
+    VRF_OGL( glEnableClientState(GL_NORMAL_ARRAY) );
+    VRF_OGL( glNormalPointer(GL_DOUBLE, sizeof(SVertice), BUFFER_OFFSET(3 * sizeof(double))) );
+    VRF_OGL( glClientActiveTexture(GL_TEXTURE0) );
+    VRF_OGL( glEnableClientState(GL_TEXTURE_COORD_ARRAY) );
+    VRF_OGL( glTexCoordPointer(2, GL_DOUBLE, sizeof(SVertice), BUFFER_OFFSET(6 * sizeof(double))) );
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ib);
+    VRF_OGL( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ib) );
 
-    glDrawElements(GL_TRIANGLE_STRIP, m_indices.size(), GL_UNSIGNED_INT, BUFFER_OFFSET(0));
+    VRF_OGL( glDrawElements(GL_TRIANGLE_STRIP, m_indices.size(), GL_UNSIGNED_INT, BUFFER_OFFSET(0)) );
 
-    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-    glDisableClientState(GL_NORMAL_ARRAY);
-    glDisableClientState(GL_VERTEX_ARRAY);
-
-/*
-    glBegin(GL_TRIANGLE_STRIP);
-
-    size_t iy = 0, ix = 0;
-    for ( iy = 0; iy < m_countY; ++iy )
-    {
-        for ( ix = 0; ix <= m_countX; ++ix )
-        {
-            const SVertice& vertice1 = m_vertices[ix + iy * (m_countX + 1)];
-            const SVertice& vertice2 = m_vertices[ix + (iy + 1) * (m_countX + 1)];
-
-            glNormal3dv(vertice1.normal);
-            glTexCoord2dv(vertice1.texture);
-            glVertex3dv(vertice1.vertice);
-
-            glNormal3dv(vertice2.normal);
-            glTexCoord2dv(vertice2.texture);
-            glVertex3dv(vertice2.vertice);
-        }
-    }
-
-    glEnd();
-*/
+    VRF_OGL( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
+    VRF_OGL( glDisableClientState(GL_NORMAL_ARRAY) );
+    VRF_OGL( glDisableClientState(GL_VERTEX_ARRAY) );
 }

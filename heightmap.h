@@ -4,30 +4,30 @@ typedef const unsigned char* (*LPF_HEIGHT_MAP)(unsigned long* pWidth, unsigned l
 
 const unsigned char* GetEarthHeightMap(unsigned long* pWidth, unsigned long* pHeight);
 
-class CHeightMapI
+class IHeightMap
 {
 public:
-    virtual ~CHeightMapI() {}
+    virtual ~IHeightMap() {}
     virtual unsigned long GetWidth() const = 0;
     virtual unsigned long GetHeight() const = 0;
     virtual double GetValue(long x, long y) const = 0;
 };
 
-class CNullHeightMap : public CHeightMapI
+class DummyHeightMap : public IHeightMap
 {
 public:
-    CNullHeightMap(unsigned long width, unsigned long height, double value = 0)
+    DummyHeightMap(unsigned long width, unsigned long height, double value = 0)
     : m_width(width), m_height(height), m_value(value) {}
-    ~CNullHeightMap() {}
-    
-    virtual unsigned long GetWidth() const { return m_width; }
-    virtual unsigned long GetHeight() const { return m_height; }
-    virtual double GetValue(long x, long y) const
+    ~DummyHeightMap() {}
+
+    virtual unsigned long GetWidth() const override { return m_width; }
+    virtual unsigned long GetHeight() const override { return m_height; }
+    virtual double GetValue(long x, long y) const override
     {
         ASSERT( x >= 0 && x < (long)m_width && y >= 0 && y < (long)m_height );
         return m_value;
     }
-    
+
 private:
     const unsigned long m_width;
     const unsigned long m_height;
@@ -35,10 +35,10 @@ private:
 };
 
 template <LPF_HEIGHT_MAP t_pfn>
-class CHeightMap : public CHeightMapI
+class HeightMap : public IHeightMap
 {
 public:
-    CHeightMap(double exaggregation)
+    HeightMap(double exaggregation)
         : m_pHeightMap(nullptr)
         , m_width(0)
         , m_height(0)
@@ -46,15 +46,15 @@ public:
     {
         m_pHeightMap = (*t_pfn)(&m_width, &m_height);
     }
-    ~CHeightMap() {}
-    virtual unsigned long GetWidth() const { return m_width; }
-    virtual unsigned long GetHeight() const { return m_height; }
-    virtual double GetValue(long x, long y) const
+    ~HeightMap() {}
+    virtual unsigned long GetWidth() const override { return m_width; }
+    virtual unsigned long GetHeight() const override { return m_height; }
+    virtual double GetValue(long x, long y) const override
     {
         ASSERT( x >= 0 && x < (long)m_width && y >= 0 && y < (long)m_height );
         return ( m_exaggregation * (double)(m_pHeightMap[y * m_width + x]) );
     }
-    
+
 private:
     const unsigned char* m_pHeightMap;
     unsigned long m_width;
@@ -62,4 +62,4 @@ private:
     double m_exaggregation;
 };
 
-typedef CHeightMap<GetEarthHeightMap> CEarthHeightMap;
+typedef HeightMap<GetEarthHeightMap> EarthHeightMap;
