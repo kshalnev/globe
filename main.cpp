@@ -8,7 +8,7 @@
 
 double g_distance = 3.0;
 double g_angle = 0.0;
-GlobeMesh g_globe = GlobeMesh(EarthHeightMap(0.04));
+GlobeMesh g_globe = GlobeMesh(EarthHeightMap(0.03));
 FpsMeter g_fps;
 
 void init()
@@ -70,7 +70,7 @@ void display()
     VRF_OGL( glMatrixMode(GL_MODELVIEW) );
     VRF_OGL( glLoadIdentity() );
     VRF_OGL( glTranslated(0, 0, -g_distance) );
-    VRF_OGL( glRotated(0, 1, 0, 0) );
+    VRF_OGL( glRotated(-23.44, 0, 0, 1) );
     VRF_OGL( glRotated(g_angle, 0, 1, 0) );
 
     g_globe.DrawOpenGL();
@@ -79,7 +79,7 @@ void display()
 
     glutSwapBuffers();
 
-    g_angle += 0.25;
+    g_angle += 1;
 }
 
 void reshape(int w, int h)
