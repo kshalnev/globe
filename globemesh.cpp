@@ -8,14 +8,13 @@
 
 static const double VALUE_PI = 3.1415926535897932384626433832795;
 static const double VALUE_DEG_TO_RAD = VALUE_PI / 180.0;
-static const double VALUE_RAD_TO_DEG = 180.0 / VALUE_PI;
 
 //
 // Macro
 //
 
 #define DEG_TO_RAD(deg) ((deg) * VALUE_DEG_TO_RAD)
-#define RAD_TO_DEG(rad) ((rad) * VALUE_RAD_TO_DEG)
+#define RAD_TO_DEG(rad) ((rad) / VALUE_DEG_TO_RAD)
 
 //
 // Helpers
@@ -167,7 +166,7 @@ GlobeMesh::GlobeMesh(const IHeightMap& heightMap)
             // normal is summ of
             //  1    2   12   34    4   45
             // 34   45   4    6    67   7
-            double n[6][3] = { 0 };
+            double n[6][3] = {};
             GetNormal(vertice4.vertice, vertice1.vertice, vertice3.vertice, n[0]);
             GetNormal(vertice4.vertice, vertice5.vertice, vertice2.vertice, n[1]);
             GetNormal(vertice4.vertice, vertice2.vertice, vertice1.vertice, n[2]);

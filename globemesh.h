@@ -1,6 +1,6 @@
 #pragma once
 
-class IHeightMap;
+#include "heightmap.h"
 
 class GlobeMesh
 {

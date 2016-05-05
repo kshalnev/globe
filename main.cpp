@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "globemesh.h"
-#include "heightmap.h"
 #include "fpsmeter.h"
 
 #include <sstream>
