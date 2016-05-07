@@ -1,6 +1,7 @@
 #include "mesh.hpp"
 
 #include <cmath>
+#include <cassert>
 
 namespace
 {
@@ -33,7 +34,16 @@ inline void GetNormal(const float a[3], const float b[3], const float c[3], floa
   
 } // namespace
 
+Mesh::Mesh()
+{
+}
+
 Mesh::Mesh(IHeightMap const & heightMap)
+{
+  Init(heightMap);
+}
+
+void Mesh::Init(IHeightMap const & heightMap)
 {
   const size_t w = heightMap.GetWidth();
   const size_t h = heightMap.GetHeight();
@@ -82,20 +92,20 @@ Mesh::Mesh(IHeightMap const & heightMap)
       }
       else if (x == (w - 1))
       {
-        // 10  or   1
-        // 2       20
+        // 20  or   2
+        // 1       10
         if (y == (h-1))
         {
           Vertice& vertice0 = vertices[x + y * w];
-          Vertice& vertice1 = vertices[x + (y-1) * w];
-          Vertice& vertice2 = vertices[(x-1) + y * w];
+          Vertice& vertice1 = vertices[(x-1) + y * w];
+          Vertice& vertice2 = vertices[x + (y-1) * w];
           GetNormal(vertice0.p, vertice1.p, vertice2.p, vertice0.n);
         }
         else
         {
           Vertice& vertice0 = vertices[x + y * w];
-          Vertice& vertice1 = vertices[(x-1) + y * w];
-          Vertice& vertice2 = vertices[(x-1) + (y+1) * w];
+          Vertice& vertice1 = vertices[(x-1) + (y+1) * w];
+          Vertice& vertice2 = vertices[(x-1) + y * w];
           GetNormal(vertice0.p, vertice1.p, vertice2.p, vertice0.n);
         }
       }
@@ -103,12 +113,12 @@ Mesh::Mesh(IHeightMap const & heightMap)
       if (y == 0)
       {
         // 01  or  0
-        // 2      12
+        // 2      21
         if (x == (w-1))
         {
           Vertice& vertice0 = vertices[x + y * w];
-          Vertice& vertice1 = vertices[(x-1) + (y+1) * w];
-          Vertice& vertice2 = vertices[x + (y+1) * w];
+          Vertice& vertice1 = vertices[x + (y+1) * w];
+          Vertice& vertice2 = vertices[(x-1) + (y+1) * w];
           GetNormal(vertice0.p, vertice1.p, vertice2.p, vertice0.n);
         }
         else
@@ -121,13 +131,13 @@ Mesh::Mesh(IHeightMap const & heightMap)
       }
       else if (y == (h-1))
       {
-        // 12  or   1
-        // 0       20
+        // 12  or   2
+        // 0       10
         if (x == (w-1))
         {
           Vertice& vertice0 = vertices[x + y * w];
-          Vertice& vertice1 = vertices[x + (y-1) * w];
-          Vertice& vertice2 = vertices[(x-1) + y * w];
+          Vertice& vertice1 = vertices[(x-1) + y * w];
+          Vertice& vertice2 = vertices[x + (y-1) * w];
           GetNormal(vertice0.p, vertice1.p, vertice2.p, vertice0.n);
         }
         else
@@ -158,12 +168,12 @@ Mesh::Mesh(IHeightMap const & heightMap)
         //  1    2   12   34    4   45
         // 34   45   4    6    67   7
         float n[6][3] = {};
-        GetNormal(vertice4.p, vertice1.p, vertice3.p, n[0]);
-        GetNormal(vertice4.p, vertice5.p, vertice2.p, n[1]);
-        GetNormal(vertice4.p, vertice2.p, vertice1.p, n[2]);
-        GetNormal(vertice4.p, vertice3.p, vertice6.p, n[3]);
-        GetNormal(vertice4.p, vertice6.p, vertice7.p, n[4]);
-        GetNormal(vertice4.p, vertice7.p, vertice5.p, n[5]);
+        GetNormal(vertice4.p, vertice3.p, vertice1.p, n[0]);
+        GetNormal(vertice4.p, vertice2.p, vertice5.p, n[1]);
+        GetNormal(vertice4.p, vertice1.p, vertice2.p, n[2]);
+        GetNormal(vertice4.p, vertice6.p, vertice3.p, n[3]);
+        GetNormal(vertice4.p, vertice7.p, vertice6.p, n[4]);
+        GetNormal(vertice4.p, vertice5.p, vertice7.p, n[5]);
         for (int t = 0; t < 6; t++)
         {
           vertice4.n[0] += n[t][0];

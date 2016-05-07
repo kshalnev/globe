@@ -16,7 +16,10 @@ public:
   using TVerticeVector = std::vector<Vertice>;
   using TIndiceVector = std::vector<uint32_t>;
   
+  Mesh();
   Mesh(IHeightMap const & heightMap);
+  
+  void Init(IHeightMap const & heightMap);
   
   TVerticeVector const & Vertices() const { return m_vertices; }
   TIndiceVector const & Indices() const { return m_indices; }
