@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5707BF401CDE6785000CD2B3 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5707BF3F1CDE6785000CD2B3 /* GLKit.framework */; };
-		5707BF431CDE76D6000CD2B3 /* perlinnoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5707BF411CDE76D6000CD2B3 /* perlinnoise.cpp */; };
+		5707BF461CDE7A3F000CD2B3 /* perlinnoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5707BF451CDE7A3F000CD2B3 /* perlinnoise.cpp */; };
 		574224841CDE5F5A0085E574 /* heightmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574224821CDE5F5A0085E574 /* heightmap.cpp */; };
 		574224851CDE5F5A0085E574 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574224831CDE5F5A0085E574 /* mesh.cpp */; };
 		57EF6DB71CDDF7D400560103 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EF6DB61CDDF7D400560103 /* main.m */; };
@@ -23,8 +23,8 @@
 
 /* Begin PBXFileReference section */
 		5707BF3F1CDE6785000CD2B3 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		5707BF411CDE76D6000CD2B3 /* perlinnoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = perlinnoise.cpp; path = ../perlinnoise.cpp; sourceTree = "<group>"; };
-		5707BF421CDE76D6000CD2B3 /* perlinnoise.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = perlinnoise.hpp; path = ../perlinnoise.hpp; sourceTree = "<group>"; };
+		5707BF441CDE7A3F000CD2B3 /* perlinnoise.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = perlinnoise.hpp; sourceTree = "<group>"; };
+		5707BF451CDE7A3F000CD2B3 /* perlinnoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = perlinnoise.cpp; sourceTree = "<group>"; };
 		574224801CDE5F5A0085E574 /* heightmap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = heightmap.hpp; sourceTree = "<group>"; };
 		574224811CDE5F5A0085E574 /* mesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mesh.hpp; sourceTree = "<group>"; };
 		574224821CDE5F5A0085E574 /* heightmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = heightmap.cpp; sourceTree = "<group>"; };
@@ -75,8 +75,8 @@
 		57EF6DB41CDDF7D400560103 /* ThePlanet */ = {
 			isa = PBXGroup;
 			children = (
-				5707BF411CDE76D6000CD2B3 /* perlinnoise.cpp */,
-				5707BF421CDE76D6000CD2B3 /* perlinnoise.hpp */,
+				5707BF441CDE7A3F000CD2B3 /* perlinnoise.hpp */,
+				5707BF451CDE7A3F000CD2B3 /* perlinnoise.cpp */,
 				574224801CDE5F5A0085E574 /* heightmap.hpp */,
 				574224811CDE5F5A0085E574 /* mesh.hpp */,
 				574224821CDE5F5A0085E574 /* heightmap.cpp */,
@@ -176,7 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5707BF431CDE76D6000CD2B3 /* perlinnoise.cpp in Sources */,
+				5707BF461CDE7A3F000CD2B3 /* perlinnoise.cpp in Sources */,
 				57EF6DBA1CDDF7D400560103 /* AppDelegate.m in Sources */,
 				574224841CDE5F5A0085E574 /* heightmap.cpp in Sources */,
 				57EF6DC11CDDF7D400560103 /* GameViewController.mm in Sources */,
