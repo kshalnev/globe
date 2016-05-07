@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5707BF401CDE6785000CD2B3 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5707BF3F1CDE6785000CD2B3 /* GLKit.framework */; };
 		574224841CDE5F5A0085E574 /* heightmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574224821CDE5F5A0085E574 /* heightmap.cpp */; };
 		574224851CDE5F5A0085E574 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574224831CDE5F5A0085E574 /* mesh.cpp */; };
 		57EF6DB71CDDF7D400560103 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EF6DB61CDDF7D400560103 /* main.m */; };
 		57EF6DBA1CDDF7D400560103 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EF6DB91CDDF7D400560103 /* AppDelegate.m */; };
 		57EF6DBC1CDDF7D400560103 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 57EF6DBB1CDDF7D400560103 /* Shader.fsh */; };
 		57EF6DBE1CDDF7D400560103 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 57EF6DBD1CDDF7D400560103 /* Shader.vsh */; };
-		57EF6DC11CDDF7D400560103 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EF6DC01CDDF7D400560103 /* GameViewController.m */; };
+		57EF6DC11CDDF7D400560103 /* GameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 57EF6DC01CDDF7D400560103 /* GameViewController.mm */; };
 		57EF6DC41CDDF7D400560103 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57EF6DC21CDDF7D400560103 /* Main.storyboard */; };
 		57EF6DC61CDDF7D400560103 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57EF6DC51CDDF7D400560103 /* Assets.xcassets */; };
 		57EF6DC91CDDF7D400560103 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57EF6DC71CDDF7D400560103 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5707BF3F1CDE6785000CD2B3 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		574224801CDE5F5A0085E574 /* heightmap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = heightmap.hpp; sourceTree = "<group>"; };
 		574224811CDE5F5A0085E574 /* mesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mesh.hpp; sourceTree = "<group>"; };
 		574224821CDE5F5A0085E574 /* heightmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = heightmap.cpp; sourceTree = "<group>"; };
@@ -31,7 +33,7 @@
 		57EF6DBB1CDDF7D400560103 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
 		57EF6DBD1CDDF7D400560103 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		57EF6DBF1CDDF7D400560103 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		57EF6DC01CDDF7D400560103 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		57EF6DC01CDDF7D400560103 /* GameViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GameViewController.mm; sourceTree = "<group>"; };
 		57EF6DC31CDDF7D400560103 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57EF6DC51CDDF7D400560103 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57EF6DC81CDDF7D400560103 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -43,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5707BF401CDE6785000CD2B3 /* GLKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +55,7 @@
 		57EF6DA91CDDF7D400560103 = {
 			isa = PBXGroup;
 			children = (
+				5707BF3F1CDE6785000CD2B3 /* GLKit.framework */,
 				57EF6DB41CDDF7D400560103 /* ThePlanet */,
 				57EF6DB31CDDF7D400560103 /* Products */,
 			);
@@ -77,7 +81,7 @@
 				57EF6DBB1CDDF7D400560103 /* Shader.fsh */,
 				57EF6DBD1CDDF7D400560103 /* Shader.vsh */,
 				57EF6DBF1CDDF7D400560103 /* GameViewController.h */,
-				57EF6DC01CDDF7D400560103 /* GameViewController.m */,
+				57EF6DC01CDDF7D400560103 /* GameViewController.mm */,
 				57EF6DC21CDDF7D400560103 /* Main.storyboard */,
 				57EF6DC51CDDF7D400560103 /* Assets.xcassets */,
 				57EF6DC71CDDF7D400560103 /* LaunchScreen.storyboard */,
@@ -169,7 +173,7 @@
 			files = (
 				57EF6DBA1CDDF7D400560103 /* AppDelegate.m in Sources */,
 				574224841CDE5F5A0085E574 /* heightmap.cpp in Sources */,
-				57EF6DC11CDDF7D400560103 /* GameViewController.m in Sources */,
+				57EF6DC11CDDF7D400560103 /* GameViewController.mm in Sources */,
 				574224851CDE5F5A0085E574 /* mesh.cpp in Sources */,
 				57EF6DB71CDDF7D400560103 /* main.m in Sources */,
 			);
