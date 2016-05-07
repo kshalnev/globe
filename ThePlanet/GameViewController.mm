@@ -64,7 +64,7 @@ enum
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
-    _mesh.Init(RandHeightMap(20, 20, 20));
+    _mesh.Init(PerlinNoiseHeightMap(20, 20));
   
     [self setupGL];
 }

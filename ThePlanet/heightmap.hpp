@@ -40,3 +40,18 @@ private:
   const size_t m_height;
   std::vector<double> m_values;
 };
+
+class PerlinNoiseHeightMap : public IHeightMap
+{
+public:
+  PerlinNoiseHeightMap(size_t width, size_t height);
+
+  virtual size_t GetWidth() const override { return m_width; }
+  virtual size_t GetHeight() const override { return m_height; }
+  virtual double GetValue(size_t x, size_t y) const override;
+  
+private:
+  const size_t m_width;
+  const size_t m_height;
+  std::vector<double> m_values;
+};
