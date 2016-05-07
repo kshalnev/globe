@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		574224841CDE5F5A0085E574 /* heightmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574224821CDE5F5A0085E574 /* heightmap.cpp */; };
+		574224851CDE5F5A0085E574 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 574224831CDE5F5A0085E574 /* mesh.cpp */; };
 		57EF6DB71CDDF7D400560103 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EF6DB61CDDF7D400560103 /* main.m */; };
 		57EF6DBA1CDDF7D400560103 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EF6DB91CDDF7D400560103 /* AppDelegate.m */; };
 		57EF6DBC1CDDF7D400560103 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 57EF6DBB1CDDF7D400560103 /* Shader.fsh */; };
@@ -18,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		574224801CDE5F5A0085E574 /* heightmap.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = heightmap.hpp; sourceTree = "<group>"; };
+		574224811CDE5F5A0085E574 /* mesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mesh.hpp; sourceTree = "<group>"; };
+		574224821CDE5F5A0085E574 /* heightmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = heightmap.cpp; sourceTree = "<group>"; };
+		574224831CDE5F5A0085E574 /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mesh.cpp; sourceTree = "<group>"; };
 		57EF6DB21CDDF7D400560103 /* ThePlanet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThePlanet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EF6DB61CDDF7D400560103 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		57EF6DB81CDDF7D400560103 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -62,6 +68,10 @@
 		57EF6DB41CDDF7D400560103 /* ThePlanet */ = {
 			isa = PBXGroup;
 			children = (
+				574224801CDE5F5A0085E574 /* heightmap.hpp */,
+				574224811CDE5F5A0085E574 /* mesh.hpp */,
+				574224821CDE5F5A0085E574 /* heightmap.cpp */,
+				574224831CDE5F5A0085E574 /* mesh.cpp */,
 				57EF6DB81CDDF7D400560103 /* AppDelegate.h */,
 				57EF6DB91CDDF7D400560103 /* AppDelegate.m */,
 				57EF6DBB1CDDF7D400560103 /* Shader.fsh */,
@@ -158,7 +168,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				57EF6DBA1CDDF7D400560103 /* AppDelegate.m in Sources */,
+				574224841CDE5F5A0085E574 /* heightmap.cpp in Sources */,
 				57EF6DC11CDDF7D400560103 /* GameViewController.m in Sources */,
+				574224851CDE5F5A0085E574 /* mesh.cpp in Sources */,
 				57EF6DB71CDDF7D400560103 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,6 +322,7 @@
 				57EF6DCF1CDDF7D400560103 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
