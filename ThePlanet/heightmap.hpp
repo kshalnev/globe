@@ -1,26 +1,42 @@
 #pragma once
 
+#include <vector>
+
 class IHeightMap
 {
 public:
   virtual ~IHeightMap() = default;
-  virtual unsigned long GetWidth() const = 0;
-  virtual unsigned long GetHeight() const = 0;
-  virtual double GetValue(long x, long y) const = 0;
+  virtual size_t GetWidth() const = 0;
+  virtual size_t GetHeight() const = 0;
+  virtual double GetValue(size_t x, size_t y) const = 0;
 };
 
 class DummyHeightMap : public IHeightMap
 {
 public:
-  DummyHeightMap(unsigned long width, unsigned long height, double value = 0.0)
-    : m_width(width), m_height(height), m_value(value) {}
+  DummyHeightMap(size_t width, size_t height, double value = 0.0);
   
-  virtual unsigned long GetWidth() const override { return m_width; }
-  virtual unsigned long GetHeight() const override { return m_height; }
-  virtual double GetValue(long x, long y) const override { return m_value; }
+  virtual size_t GetWidth() const override { return m_width; }
+  virtual size_t GetHeight() const override { return m_height; }
+  virtual double GetValue(size_t x, size_t y) const override;
   
 private:
-  const unsigned long m_width;
-  const unsigned long m_height;
+  const size_t m_width;
+  const size_t m_height;
   const double m_value;
+};
+
+class RandHeightMap : public IHeightMap
+{
+public:
+  RandHeightMap(size_t width, size_t height, double maxValue = 1.0);
+  
+  virtual size_t GetWidth() const override { return m_width; }
+  virtual size_t GetHeight() const override { return m_height; }
+  virtual double GetValue(size_t x, size_t y) const override;
+  
+private:
+  const size_t m_width;
+  const size_t m_height;
+  std::vector<double> m_values;
 };

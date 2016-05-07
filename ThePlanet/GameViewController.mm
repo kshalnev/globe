@@ -1,6 +1,8 @@
 #import "GameViewController.h"
 #import <OpenGLES/ES2/glext.h>
 
+#include "mesh.hpp"
+
 #define BUFFER_OFFSET(i) ((char*)NULL + (i))
 
 // Uniform index.
@@ -21,41 +23,17 @@ enum
     NUM_ATTRIBUTES
 };
 
-const GLfloat gMesh[3 * 3 * (3 + 3)] =
-{
-    0.0f, 0.0f, 0.0f,     0.0f, 0.0f, 1.0f,
-    0.1f, 0.0f, 0.0f,     0.0f, 0.0f, 1.0f,
-    0.2f, 0.0f, 0.0f,     0.0f, 0.0f, 1.0f,
-
-    0.0f, 0.0f, 0.1f,     0.0f, 0.0f, 1.0f,
-    0.1f, 0.0f, 0.1f,     0.0f, 0.0f, 1.0f,
-    0.2f, 0.0f, 0.1f,     0.0f, 0.0f, 1.0f,
-
-    0.0f, 0.0f, 0.2f,     0.0f, 0.0f, 1.0f,
-    0.1f, 0.0f, 0.2f,     0.0f, 0.0f, 1.0f,
-    0.2f, 0.0f, 0.2f,     0.0f, 0.0f, 1.0f,
-};
-
-const GLuint gIndices[12] =
-{
-    // 012
-    // 345
-    // 678
-  
-    0, 3, 1, 4, 2, 5,
-    3, 6, 4, 7, 5, 8
-};
-
 @interface GameViewController ()
 {
     GLuint _program;
     
     GLKMatrix4 _modelViewProjectionMatrix;
     GLKMatrix3 _normalMatrix;
-    float _rotation;
-    
+  
     GLuint _vertexBuffer;
     GLuint _indicesBuffer;
+  
+    Mesh _mesh;
 }
 
 @property (strong, nonatomic) EAGLContext *context;
@@ -86,6 +64,8 @@ const GLuint gIndices[12] =
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
+    _mesh.Init(RandHeightMap(20, 20, 20));
+  
     [self setupGL];
 }
 
@@ -128,7 +108,7 @@ const GLuint gIndices[12] =
 
     glGenBuffers(1, &_vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(gMesh), gMesh, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, _mesh.VerticesSize(), _mesh.VerticesData(), GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glVertexAttribPointer(GLKVertexAttribPosition, 3, GL_FLOAT, GL_FALSE, 24, BUFFER_OFFSET(0));
@@ -137,7 +117,7 @@ const GLuint gIndices[12] =
 
     glGenBuffers(1, &_indicesBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indicesBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gIndices), gIndices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, _mesh.IndicesSize(), _mesh.IndicesData(), GL_STATIC_DRAW);
 }
 
 - (void)tearDownGL
@@ -161,14 +141,12 @@ const GLuint gIndices[12] =
 
     GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
     
-    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
-    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
+    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(-10.0f, 0.0f, -50.0f);
+    // modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, 0.0, 1.0f, 0.0f, 0.0f);
   
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
     
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
-    
-    _rotation += self.timeSinceLastUpdate * 0.5f;
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -183,8 +161,9 @@ const GLuint gIndices[12] =
     
     glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
-    
-    glDrawElements(GL_TRIANGLE_STRIP, sizeof(gIndices) / sizeof(gIndices[0]), GL_UNSIGNED_INT, BUFFER_OFFSET(0));
+  
+    GLsizei n = static_cast<GLsizei>(_mesh.Indices().size());
+    glDrawElements(GL_TRIANGLE_STRIP, n, GL_UNSIGNED_INT, BUFFER_OFFSET(0));
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
