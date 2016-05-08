@@ -64,7 +64,7 @@ enum
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
-    _mesh.Init(PerlinNoiseHeightMap(20, 20));
+    _mesh.Init(RandHeightMap(20, 20));
   
     [self setupGL];
 }
@@ -163,7 +163,7 @@ enum
     glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
   
     GLsizei n = static_cast<GLsizei>(_mesh.Indices().size());
-    glDrawElements(GL_TRIANGLE_STRIP, n, GL_UNSIGNED_INT, BUFFER_OFFSET(0));
+    glDrawElements(GL_TRIANGLES, n, GL_UNSIGNED_INT, BUFFER_OFFSET(0));
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation

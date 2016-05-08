@@ -187,13 +187,22 @@ void Mesh::Init(IHeightMap const & heightMap)
   
   // init indices
   TIndiceVector indices;
-  indices.reserve((h-1) * w * 2);
+  indices.reserve((h-1) * (w-1) * 2 * 3);
   for (size_t y = 0; y < (h-1); ++y)
   {
-    for (size_t x = 0; x < w; ++x)
+    for (size_t x = 0; x < (w-1); ++x)
     {
+      // 01
+      // 2
       indices.push_back(static_cast<TIndiceVector::value_type>(x + y * w));
+      indices.push_back(static_cast<TIndiceVector::value_type>((x+1) + y * w));
       indices.push_back(static_cast<TIndiceVector::value_type>(x + (y+1) * w));
+      
+      //  2
+      // 10
+      indices.push_back(static_cast<TIndiceVector::value_type>((x+1) + (y+1) * w));
+      indices.push_back(static_cast<TIndiceVector::value_type>(x + (y+1) * w));
+      indices.push_back(static_cast<TIndiceVector::value_type>((x+1) + y * w));
     }
   }
 
