@@ -147,10 +147,9 @@ enum
 
     GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
   
-    // GLKMatrix4 modelViewMatrix = GLKMatrix4MakeRotation(DEG_TO_RAD(90.0), 1.0f, 0.0f, 0.0f);
-    // modelViewMatrix = GLKMatrix4Translate(modelViewMatrix, 0.0f, -50.0f, 0.0f);
-  
-    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(-10.0f, -10.0f, -30.0f);
+    GLKMatrix4 modelViewMatrix = GLKMatrix4Identity;
+    modelViewMatrix = GLKMatrix4Translate(modelViewMatrix, -10.0f, 0.0f, -30.0f);
+    modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, DEG_TO_RAD(-60.0), 1.0f, 0.0f, 0.0f);
   
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
     
