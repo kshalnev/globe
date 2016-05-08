@@ -5,6 +5,12 @@
 
 #define BUFFER_OFFSET(i) ((char*)NULL + (i))
 
+static const double VALUE_PI = 3.1415926535897932384626433832795;
+static const double VALUE_DEG_TO_RAD = VALUE_PI / 180.0;
+
+#define DEG_TO_RAD(deg) ((deg) * VALUE_DEG_TO_RAD)
+#define RAD_TO_DEG(rad) ((rad) / VALUE_DEG_TO_RAD)
+
 // Uniform index.
 enum
 {
@@ -64,7 +70,7 @@ enum
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
-    _mesh.Init(RandHeightMap(20, 20));
+    _mesh.Init(RandHeightMap(21, 21));
   
     [self setupGL];
 }
@@ -140,9 +146,11 @@ enum
     float aspect = fabs(self.view.bounds.size.width / self.view.bounds.size.height);
 
     GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
-    
-    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(-10.0f, 0.0f, -50.0f);
-    // modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, 0.0, 1.0f, 0.0f, 0.0f);
+  
+    // GLKMatrix4 modelViewMatrix = GLKMatrix4MakeRotation(DEG_TO_RAD(90.0), 1.0f, 0.0f, 0.0f);
+    // modelViewMatrix = GLKMatrix4Translate(modelViewMatrix, 0.0f, -50.0f, 0.0f);
+  
+    GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(-10.0f, -10.0f, -30.0f);
   
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
     
