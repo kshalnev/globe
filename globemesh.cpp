@@ -191,12 +191,21 @@ GlobeMesh::GlobeMesh(const IHeightMap& heightMap)
     }
 
     std::vector<unsigned int> indices;
-    indices.reserve(countY * (countX + 1));
+    indices.reserve(countY * countY * 3 * 2);
     for (size_t iy = 0; iy < countY; ++iy)
     {
-        for (size_t ix = 0; ix <= countX; ++ix)
+        for (size_t ix = 0; ix < countX; ++ix)
         {
+          // 01
+          // 2
           indices.push_back(ix + iy * (countX + 1));
+          indices.push_back((ix + 1) + iy * (countX + 1));
+          indices.push_back(ix + (iy + 1) * (countX + 1));
+
+          //  0
+          // 21
+          indices.push_back((ix + 1) + iy * (countX + 1));
+          indices.push_back((ix + 1) + (iy + 1) * (countX + 1));
           indices.push_back(ix + (iy + 1) * (countX + 1));
         }
     }
@@ -253,7 +262,7 @@ void GlobeMesh::DrawOpenGL()
 
     VRF_OGL( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ib) );
 
-    VRF_OGL( glDrawElements(GL_TRIANGLE_STRIP, m_indices.size(), GL_UNSIGNED_INT, BUFFER_OFFSET(0)) );
+    VRF_OGL( glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, BUFFER_OFFSET(0)) );
 
     VRF_OGL( glDisableClientState(GL_TEXTURE_COORD_ARRAY) );
     VRF_OGL( glDisableClientState(GL_NORMAL_ARRAY) );
