@@ -69,8 +69,6 @@ void display()
 
     VRF_OGL( glMatrixMode(GL_MODELVIEW) );
     VRF_OGL( glLoadIdentity() );
-    VRF_OGL( glTranslated(0, 0, -5) );
-    VRF_OGL( glRotated(g_angle * 0.9, 0, 1, 0) );
     VRF_OGL( glTranslated(0, 0, -g_distance) );
     VRF_OGL( glRotated(-23.44, 0, 0, 1) );
     VRF_OGL( glRotated(g_angle, 0, 1, 0) );
